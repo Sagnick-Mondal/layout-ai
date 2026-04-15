@@ -16,10 +16,6 @@ export const getCurrentUser = async () => {
 }
 
 export const createProject = async ({ item, visibility = "private" }: CreateProjectParams): Promise<DesignItem | null | undefined> => {
-    if(!PUTER_WORKER_URL) {
-        console.warn('Missing VITE_PUTER_WORKER_URL; skip history fetch;');
-        return null;
-    }
     const projectId = item.id;
 
     const hosting = await getOrCreateHostingConfig();
@@ -30,21 +26,14 @@ export const createProject = async ({ item, visibility = "private" }: CreateProj
     const hostedRender = projectId && item.renderedImage ?
         await uploadImageToHosting({ hosting, url: item.renderedImage, projectId, label: 'rendered', }) : null;
 
-    const resolvedSource = hostedSource?.url || (isHostedUrl(item.sourceImage)
-        ? item.sourceImage
-        : ''
-    );
+    const resolvedSource = hostedSource?.url || item.sourceImage || '';
 
     if(!resolvedSource) {
-        console.warn('Failed to host source image, skipping save.')
+        console.warn('Failed to resolve source image, skipping save.');
         return null;
     }
 
-    const resolvedRender = hostedRender?.url
-        ? hostedRender?.url
-        : item.renderedImage && isHostedUrl(item.renderedImage)
-            ? item.renderedImage
-            : undefined;
+    const resolvedRender = hostedRender?.url || item.renderedImage || undefined;
 
     const {
         sourcePath: _sourcePath,
@@ -57,6 +46,18 @@ export const createProject = async ({ item, visibility = "private" }: CreateProj
         ...rest,
         sourceImage: resolvedSource,
         renderedImage: resolvedRender,
+        updatedAt: new Date().toISOString(),
+    }
+
+    if (!PUTER_WORKER_URL) {
+        console.warn('Missing VITE_PUTER_WORKER_URL; using local puter.kv fallback.');
+        try {
+            await puter.kv.set(`layoutai_project_${item.id}`, payload);
+            return payload as DesignItem;
+        } catch (e) {
+            console.error('Failed to save project locally:', e);
+            return null;
+        }
     }
 
     try {
@@ -84,8 +85,14 @@ export const createProject = async ({ item, visibility = "private" }: CreateProj
 
 export const getProjects = async () => {
     if(!PUTER_WORKER_URL) {
-        console.warn('Missing VITE_PUTER_WORKER_URL; skip history fetch;');
-        return []
+        console.warn('Missing VITE_PUTER_WORKER_URL; using local puter.kv fallback.');
+        try {
+            const list = await puter.kv.list('layoutai_project_', true);
+            return list.map(item => ({ ...(item.value as Record<string, any>), isPublic: true })) as DesignItem[];
+        } catch (e) {
+            console.error('Local list failed', e);
+            return [];
+        }
     }
 
     try {
@@ -107,8 +114,13 @@ export const getProjects = async () => {
 
 export const getProjectById = async ({ id }: { id: string }) => {
     if (!PUTER_WORKER_URL) {
-        console.warn("Missing VITE_PUTER_WORKER_URL; skipping project fetch.");
-        return null;
+        console.warn("Missing VITE_PUTER_WORKER_URL; using local puter.kv fallback.");
+        try {
+            return await puter.kv.get(`layoutai_project_${id}`) as DesignItem | null;
+        } catch (e) {
+            console.error('Local fetch failed', e);
+            return null;
+        }
     }
 
     console.log("Fetching project with ID:", id);
