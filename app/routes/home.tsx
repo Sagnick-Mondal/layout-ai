@@ -6,6 +6,9 @@ import Upload from "../../components/Upload";
 import {useNavigate} from "react-router";
 import {useEffect, useRef, useState} from "react";
 import {createProject, getProjects} from "../../lib/puter.action";
+import About from "./about";
+import Pricing from "./pricing";
+import Footer from "../../components/Footer";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -152,6 +155,12 @@ export default function Home() {
                   </div>
               </div>
           </section>
+            <section id="about">
+                <About />
+            </section>
+            <section>
+                <Footer />
+            </section>
       </div>
   )
 }

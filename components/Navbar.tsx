@@ -1,6 +1,6 @@
 import {Box} from "lucide-react";
 import Button from "./ui/Button";
-import {useOutletContext} from "react-router";
+import {Link, useOutletContext} from "react-router";
 
 const Navbar = () => {
     const { isSignedIn, userName, signIn, signOut } = useOutletContext<AuthContext>()
@@ -28,17 +28,17 @@ const Navbar = () => {
             <nav className="inner">
                 <div className="left">
                     <div className="brand">
-                        <Box  className="logo" />
+                        <Box className="logo" />
 
-                        <span className="name">
+                        <a href="/" className="name">
                             LayoutAI
-                        </span>
+                        </a>
                     </div>
 
                     <ul className="links">
-                        <a href="#">Product</a>
-                        <a href="#">Pricing</a>
-                        <a href="#">Community</a>
+                        <a href="/about">Product</a>
+                        <a href="/pricing">Pricing</a>
+                        <a href="https://github.com/Sagnick-Mondal/layout-ai.git" target="_blank" rel="noopener noreferrer">Community</a>
                         <a href="#">Enterprise</a>
                     </ul>
                 </div>

@@ -13,6 +13,10 @@
     --shadow-neobrutalism: 4px 4px 0px 0px rgba(0, 0, 0, 1);
 }
 
+.input {
+    @apply w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-zinc-500 outline-none focus:ring-2 focus:ring-blue-500/40;
+}
+
 @layer base {
     html {
         scroll-behavior: smooth;
@@ -107,7 +111,7 @@
     }
 
     .navbar {
-        @apply fixed top-0 w-full z-50 bg-black/40 backdrop-blur-md border-b border-white/5;
+        @apply fixed top-0 w-full z-50 bg-black/30 backdrop-blur-md border-b border-white/5;
 
         .inner {
             @apply max-w-7xl mx-auto px-6 h-16 flex items-center justify-between;
@@ -597,6 +601,576 @@
 
         &.loading {
             @apply text-sm text-zinc-500;
+        }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       About Page
+    ───────────────────────────────────────────────────────── */
+    .about-page {
+        @apply min-h-screen relative overflow-x-hidden text-foreground;
+    }
+
+    .about-section-inner {
+        @apply max-w-7xl mx-auto px-6;
+    }
+
+    .about-label {
+        @apply text-[10px] font-bold uppercase tracking-widest text-primary mb-3 inline-block;
+    }
+
+    /* Hero */
+    .about-hero {
+        @apply pt-40 pb-28 px-6 max-w-7xl mx-auto flex flex-col items-center text-center relative;
+
+        &__badge {
+            @apply mb-6 inline-flex items-center px-4 py-1.5 rounded-full bg-blue-900/30 border border-blue-500/20 backdrop-blur-md shadow-sm;
+
+            span {
+                @apply text-[10px] font-bold uppercase tracking-widest text-blue-300;
+            }
+        }
+
+        &__heading {
+            @apply text-6xl md:text-8xl font-serif leading-[0.95] text-white mb-8 max-w-4xl mx-auto;
+
+            em {
+                @apply not-italic text-transparent bg-clip-text;
+                background-image: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #0ea5e9 100%);
+            }
+        }
+
+        &__sub {
+            @apply max-w-2xl mx-auto text-sm font-mono uppercase tracking-widest text-zinc-400 leading-relaxed;
+        }
+
+        &__orb {
+            @apply absolute rounded-full pointer-events-none opacity-30 blur-3xl;
+
+            &--left {
+                @apply w-96 h-96 -left-32 top-20;
+                background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+            }
+
+            &--right {
+                @apply w-80 h-80 -right-20 top-40;
+                background: radial-gradient(circle, #0ea5e9 0%, transparent 70%);
+            }
+        }
+    }
+
+    /* Mission */
+    .about-mission {
+        @apply py-24 border-t border-white/5;
+
+        &__grid {
+            @apply grid grid-cols-1 lg:grid-cols-2 gap-16 items-center;
+        }
+
+        &__copy {
+            h2 {
+                @apply text-4xl font-serif text-white mb-6 leading-tight;
+            }
+
+            p {
+                @apply text-zinc-400 text-base leading-relaxed mb-4;
+            }
+        }
+
+        &__stats {
+            @apply grid grid-cols-2 gap-4;
+        }
+    }
+
+    .stat-chip {
+        @apply bg-surface/50 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex flex-col items-center text-center shadow-xl transition-all duration-300 hover:border-primary/40 hover:shadow-primary/10;
+
+        &__value {
+            @apply text-4xl font-serif font-bold text-white mb-1;
+            background-image: linear-gradient(135deg, #93c5fd, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        &__label {
+            @apply text-xs font-mono uppercase tracking-widest text-zinc-500;
+        }
+    }
+
+    /* Features section */
+    .about-features {
+        @apply py-24 border-t border-white/5;
+    }
+
+    .about-section-head {
+        @apply text-center mb-16;
+
+        h2 {
+            @apply text-4xl md:text-5xl font-serif text-white mb-4;
+        }
+
+        &__sub {
+            @apply text-zinc-400 text-base max-w-xl mx-auto;
+        }
+    }
+
+    .features-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Feature Card
+    ───────────────────────────────────────────────────────── */
+    .feature-card {
+        @apply relative rounded-2xl overflow-hidden border border-white/10 transition-all duration-500 cursor-default;
+        background: rgba(10, 15, 26, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+
+        &:hover {
+            @apply border-white/20 shadow-2xl -translate-y-1;
+        }
+
+        &__glow {
+            @apply absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none rounded-2xl;
+        }
+
+        &:hover .feature-card__glow {
+            @apply opacity-100;
+        }
+
+        &--blue {
+            &:hover {
+                box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+            }
+
+            .feature-card__glow {
+                background: radial-gradient(ellipse at top left, rgba(59,130,246,0.12) 0%, transparent 60%);
+            }
+
+            .feature-card__icon {
+                @apply bg-blue-900/40 border-blue-500/30;
+            }
+
+            .feature-card__icon-svg {
+                @apply text-blue-400;
+            }
+        }
+
+        &--indigo {
+            &:hover {
+                box-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
+            }
+
+            .feature-card__glow {
+                background: radial-gradient(ellipse at top left, rgba(99,102,241,0.12) 0%, transparent 60%);
+            }
+
+            .feature-card__icon {
+                @apply bg-indigo-900/40 border-indigo-500/30;
+            }
+
+            .feature-card__icon-svg {
+                @apply text-indigo-400;
+            }
+        }
+
+        &--cyan {
+            &:hover {
+                box-shadow: 0 0 40px rgba(14, 165, 233, 0.15);
+            }
+
+            .feature-card__glow {
+                background: radial-gradient(ellipse at top left, rgba(14,165,233,0.12) 0%, transparent 60%);
+            }
+
+            .feature-card__icon {
+                @apply bg-cyan-900/40 border-cyan-500/30;
+            }
+
+            .feature-card__icon-svg {
+                @apply text-cyan-400;
+            }
+        }
+
+        &__inner {
+            @apply relative z-10 p-7;
+        }
+
+        &__badge {
+            @apply inline-block text-[9px] font-bold uppercase tracking-widest text-primary bg-primary/10 border border-primary/20 rounded-md px-2 py-0.5 mb-4;
+        }
+
+        &__icon {
+            @apply w-11 h-11 rounded-xl flex items-center justify-center border mb-5 transition-transform duration-300;
+        }
+
+        &:hover &__icon {
+            @apply scale-110;
+        }
+
+        &__icon-svg {
+            @apply w-5 h-5;
+        }
+
+        &__title {
+            @apply text-lg font-serif font-bold text-white mb-3;
+        }
+
+        &__description {
+            @apply text-sm text-zinc-400 leading-relaxed;
+        }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       Feedback Section
+    ───────────────────────────────────────────────────────── */
+    .about-feedback {
+        @apply py-24 border-t border-white/5;
+    }
+
+    .feedback-shell {
+        @apply relative max-w-2xl mx-auto rounded-3xl border border-white/10 overflow-hidden;
+        background: rgba(10, 15, 26, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        &__glow {
+            @apply absolute inset-0 pointer-events-none;
+            background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 60%);
+        }
+    }
+
+    .feedback-form {
+        @apply relative z-10 p-8 md:p-10 flex flex-col gap-6;
+
+        &__icon-wrap {
+            @apply w-12 h-12 rounded-full bg-blue-900/40 border border-blue-500/30 flex items-center justify-center mx-auto mb-2;
+        }
+
+        &__icon {
+            @apply w-5 h-5 text-primary;
+        }
+
+        &__row {
+            @apply grid grid-cols-1 sm:grid-cols-2 gap-5;
+        }
+
+        &__field {
+            @apply flex flex-col gap-2;
+
+            label {
+                @apply text-xs font-semibold uppercase tracking-widest text-zinc-400;
+            }
+
+            input,
+            textarea {
+                @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 outline-none transition-all duration-200;
+
+                &:focus {
+                    @apply border-primary/60 bg-blue-900/10 ring-2 ring-primary/20;
+                }
+            }
+
+            textarea {
+                @apply resize-none;
+            }
+        }
+
+        &__error {
+            @apply text-xs text-red-400 bg-red-900/20 border border-red-500/20 rounded-lg px-4 py-3;
+        }
+
+        &__submit {
+            @apply w-full flex items-center justify-center gap-2 rounded-xl py-3 font-semibold tracking-wide;
+        }
+
+        &__spinner {
+            @apply w-4 h-4 animate-spin;
+        }
+
+        &__send-icon {
+            @apply w-4 h-4;
+        }
+    }
+
+    .feedback-success {
+        @apply relative z-10 p-10 md:p-16 flex flex-col items-center text-center gap-4;
+
+        &__icon {
+            @apply w-14 h-14 text-green-400 mb-2;
+        }
+
+        h3 {
+            @apply text-2xl font-serif font-bold text-white;
+        }
+
+        p {
+            @apply text-zinc-400 text-sm max-w-xs leading-relaxed;
+        }
+
+        &__back {
+            @apply mt-2;
+        }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       About Footer
+    ───────────────────────────────────────────────────────── */
+    .about-footer {
+        @apply border-t border-white/5 py-8;
+
+        .about-section-inner {
+            @apply flex items-center justify-between;
+        }
+
+        p {
+            @apply text-xs text-zinc-600;
+        }
+
+        &__home {
+            @apply text-xs text-zinc-500 hover:text-white transition-colors;
+        }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       Pricing Page
+    ═══════════════════════════════════════════════════════════ */
+
+    .pricing-page {
+        @apply min-h-screen relative overflow-x-hidden text-foreground;
+    }
+
+    .pricing-section-inner {
+        @apply max-w-7xl mx-auto px-6;
+    }
+
+    .pricing-label {
+        @apply text-[10px] font-bold uppercase tracking-widest text-primary mb-3 inline-block;
+    }
+
+    .pricing-section-head {
+        @apply text-center mb-14;
+
+        h2 {
+            @apply text-4xl md:text-5xl font-serif text-white mt-2;
+        }
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .pricing-hero {
+        @apply pt-40 pb-20 px-6 text-center relative overflow-hidden;
+
+        &__bg {
+            @apply absolute inset-0 pointer-events-none;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(59,130,246,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(99,102,241,0.08) 0%, transparent 60%);
+        }
+
+        &__content {
+            @apply relative z-10 max-w-3xl mx-auto flex flex-col items-center;
+        }
+
+        &__badge {
+            @apply inline-flex items-center px-4 py-1.5 rounded-full bg-blue-900/30 border border-blue-500/20 backdrop-blur-md shadow-sm mb-6 text-[10px] font-bold uppercase tracking-widest text-blue-300;
+        }
+
+        &__heading {
+            @apply text-6xl md:text-7xl font-serif leading-[0.95] text-white mb-6;
+        }
+
+        &__heading-accent {
+            @apply text-transparent bg-clip-text;
+            background-image: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #0ea5e9 100%);
+        }
+
+        &__sub {
+            @apply text-zinc-400 text-base max-w-xl mx-auto mb-8;
+        }
+
+        &__trust {
+            @apply flex items-center gap-3 text-xs text-zinc-500 flex-wrap justify-center;
+        }
+
+        &__trust-icon {
+            @apply w-3.5 h-3.5 text-primary;
+        }
+    }
+
+    /* ── Grid ─────────────────────────────────────────────────── */
+    .pricing-plans {
+        @apply py-10 pb-24;
+    }
+
+    .pricing-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       Pricing Card
+    ══════════════════════════════════════════════════════════ */
+    .pricing-card {
+        @apply relative rounded-2xl overflow-hidden flex flex-col;
+        background: rgba(10, 15, 26, 0.65);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+        &--highlighted {
+            @apply border-indigo-500/40;
+            box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.3), 0 24px 60px rgba(99,102,241,0.15);
+        }
+
+        &__gradient {
+            @apply absolute inset-0 opacity-40 pointer-events-none;
+        }
+
+        &__glow {
+            @apply absolute -inset-px rounded-2xl blur-xl opacity-40 pointer-events-none -z-10;
+        }
+
+        &__inner {
+            @apply relative z-10 p-7 flex flex-col h-full;
+        }
+
+        &__header {
+            @apply mb-6;
+        }
+
+        &__name-row {
+            @apply flex items-center gap-3 mb-3;
+        }
+
+        &__tier-label {
+            @apply text-xs font-bold uppercase tracking-widest;
+        }
+
+        &__badge {
+            @apply text-[9px] font-bold uppercase tracking-widest text-indigo-300 bg-indigo-500/15 border border-indigo-500/25 rounded-md px-2 py-0.5;
+        }
+
+        &__price-row {
+            @apply flex items-end gap-1.5 mb-3;
+        }
+
+        &__price {
+            @apply text-4xl font-serif font-bold text-white leading-none;
+        }
+
+        &__period {
+            @apply text-sm text-zinc-500 mb-1;
+        }
+
+        &__description {
+            @apply text-xs text-zinc-400 leading-relaxed;
+        }
+
+        &__divider {
+            @apply h-px bg-white/5 my-5;
+        }
+
+        &__features {
+            @apply flex flex-col gap-3 flex-1 mb-7;
+        }
+
+        &__feature {
+            @apply flex items-start gap-3 text-sm;
+
+            &.is-included {
+                @apply text-zinc-300;
+            }
+
+            &.is-excluded {
+                @apply text-zinc-600;
+            }
+        }
+
+        &__check {
+            @apply w-4 h-4 shrink-0 mt-0.5;
+        }
+
+        /* CTA button variants */
+        &__btn {
+            @apply w-full py-3 px-5 rounded-xl text-sm font-semibold text-center transition-all duration-200 tracking-wide;
+
+            &--ghost {
+                @apply bg-white/5 text-zinc-300 border border-white/10 hover:bg-white/10 hover:text-white;
+            }
+
+            &--blue {
+                @apply bg-blue-600 text-white hover:bg-blue-500 shadow-lg shadow-blue-500/25;
+            }
+
+            &--indigo {
+                @apply text-white shadow-lg shadow-indigo-500/30;
+                background: linear-gradient(135deg, #6366f1, #818cf8);
+
+                &:hover {
+                    background: linear-gradient(135deg, #4f46e5, #6366f1);
+                }
+            }
+
+            &--amber {
+                @apply bg-amber-600/90 text-white hover:bg-amber-500 shadow-lg shadow-amber-500/20;
+            }
+        }
+    }
+
+    /* ── Stripe trust bar ─────────────────────────────────────── */
+    .pricing-stripe-bar {
+        @apply py-10 border-t border-white/5;
+    }
+
+    .stripe-trust {
+        @apply flex items-center justify-center gap-4 flex-wrap text-xs text-zinc-600;
+
+        &__logo {
+            @apply h-5 text-zinc-600;
+        }
+
+        &__separator {
+            @apply text-zinc-700;
+        }
+    }
+
+    /* ── FAQ ──────────────────────────────────────────────────── */
+    .pricing-faq {
+        @apply py-24 border-t border-white/5;
+    }
+
+    .faq-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto;
+    }
+
+    .faq-item {
+        @apply bg-surface/50 backdrop-blur-md border border-white/8 rounded-2xl p-6 transition-all duration-300 hover:border-white/15;
+
+        &__q {
+            @apply text-white font-semibold mb-2 text-sm;
+        }
+
+        &__a {
+            @apply text-zinc-400 text-sm leading-relaxed;
+        }
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    .pricing-footer {
+        @apply border-t border-white/5 py-8;
+
+        .pricing-section-inner {
+            @apply flex items-center justify-between;
+        }
+
+        p {
+            @apply text-xs text-zinc-600;
+        }
+
+        &__home {
+            @apply text-xs text-zinc-500 hover:text-white transition-colors;
         }
     }
 }
