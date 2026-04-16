@@ -20,16 +20,14 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-zinc-400">
               <li><a href="#about" className="hover:text-white">About</a></li>
               <li><a href="/pricing" className="hover:text-white">Pricing</a></li>
-              <li><a href="#" className="hover:text-white">Features</a></li>
             </ul>
           </div>
 
           <div>
             <p className="text-sm text-white mb-3">Company</p>
             <ul className="space-y-2 text-sm text-zinc-400">
-              <li><a href="#" className="hover:text-white">About Us</a></li>
-              <li><a href="#" className="hover:text-white">Careers</a></li>
-              <li><a href="#" className="hover:text-white">Contact</a></li>
+              <li><a href="https://www.linkedin.com/in/sagnick-mondal-12487234a/" className="hover:text-white">About Us</a></li>
+              <li><a href="https://www.linkedin.com/in/sagnick-mondal-12487234a/" className="hover:text-white">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -39,23 +37,17 @@ export default function Footer() {
           <p className="text-sm text-white mb-3">Community</p>
           <div className="flex gap-4">
             <a
-              href="https://github.com/your-username"
+              href="https://github.com/Sagnick-Mondal"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white"
             >
               <FaGithub size={18} />
             </a>
-
             <a
-              href="#"
-              className="text-zinc-400 hover:text-white"
-            >
-              <FaTwitter size={18} />
-            </a>
-
-            <a
-              href="#"
+              href="https://www.linkedin.com/in/sagnick-mondal-12487234a/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-zinc-400 hover:text-white"
             >
               <FaLinkedin size={18} />
