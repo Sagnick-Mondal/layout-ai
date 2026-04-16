@@ -1,5 +1,6 @@
 import { Check, Minus } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export interface PricingFeature {
   text: string;
@@ -45,6 +46,14 @@ const PricingCard = ({
   badge,
   highlighted = false,
 }: PricingCardProps) => {
+  const [loading, setLoading] = useState(false);
+
+  const baseBtnStyle = `mt-auto w-full text-center py-2.5 rounded-lg text-sm font-medium transition ${
+    highlighted
+      ? "bg-blue-500 text-white hover:bg-blue-600"
+      : "bg-zinc-800 text-white hover:bg-zinc-700"
+  }`;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -52,7 +61,7 @@ const PricingCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
       whileHover={{ y: -6 }}
-      className={`relative rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-xl p-6 flex flex-col justify-between ${
+      className={`relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-xl p-6 flex flex-col justify-between transition duration-300 hover:shadow-lg hover:shadow-blue-500/10 ${
         highlighted
           ? "ring-1 ring-blue-500/40 shadow-xl shadow-blue-500/10"
           : ""
@@ -101,19 +110,29 @@ const PricingCard = ({
         ))}
       </ul>
 
-      {/* CTA */}
-      <a
-        href={stripeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`mt-auto w-full text-center py-2.5 rounded-lg text-sm font-medium transition ${
-          highlighted
-            ? "bg-blue-500 text-white hover:bg-blue-600"
-            : "bg-zinc-800 text-white hover:bg-zinc-700"
-        }`}
-      >
-        {ctaLabel}
-      </a>
+      {/* CTA Logic */}
+      {tier === "free" ? (
+        <a href="/#upload" className={baseBtnStyle}>
+          {ctaLabel}
+        </a>
+      ) : tier === "enterprise" ? (
+        <a
+          href="/contact"
+          className="mt-auto w-full text-center py-2.5 rounded-lg text-sm font-medium bg-amber-500 text-black hover:bg-amber-400 transition"
+        >
+          {ctaLabel}
+        </a>
+      ) : (
+        <a
+          href={stripeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setLoading(true)}
+          className={baseBtnStyle}
+        >
+          {loading ? "Redirecting..." : ctaLabel}
+        </a>
+      )}
     </motion.div>
   );
 };

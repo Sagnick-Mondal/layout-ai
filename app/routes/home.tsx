@@ -9,6 +9,7 @@ import {createProject, getProjects} from "../../lib/puter.action";
 import About from "./about";
 import Pricing from "./pricing";
 import Footer from "../../components/Footer";
+import Testimonials from "../../components/Testimonials";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -155,9 +156,13 @@ export default function Home() {
                   </div>
               </div>
           </section>
+          <section id="testimonials">
+                <Testimonials />
+            </section>
             <section id="about">
                 <About />
             </section>
+            
             <section>
                 <Footer />
             </section>

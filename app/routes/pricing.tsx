@@ -20,10 +20,10 @@ export function meta({}: Route.MetaArgs) {
 // ─── Replace these with your actual Stripe Payment Link URLs ──────────────────
 // Create them at: https://dashboard.stripe.com/payment-links
 const STRIPE_LINKS = {
-    free: "#",                                        // No payment needed
-    solo: "https://buy.stripe.com/YOUR_SOLO_LINK",
-    team: "https://buy.stripe.com/YOUR_TEAM_LINK",
-    enterprise: "https://buy.stripe.com/YOUR_ENT_LINK",
+    free: "/#upload",                                        // No payment needed
+    solo: "https://buy.stripe.com/test_6oU8wJeaL7rZ2U1avW6Vq00",
+    team: "https://buy.stripe.com/test_14AeV7giTcMj1PX47y6Vq01",
+    enterprise: "/contact",
 } as const;
 // ─────────────────────────────────────────────────────────────────────────────
 

@@ -36,10 +36,10 @@ const Navbar = () => {
                     </div>
 
                     <ul className="links">
-                        <a href="/about">Product</a>
+                        <a href="/about">About</a>
                         <a href="/pricing">Pricing</a>
                         <a href="https://github.com/Sagnick-Mondal/layout-ai.git" target="_blank" rel="noopener noreferrer">Community</a>
-                        <a href="#">Enterprise</a>
+                        <a href="/#testimonials">Testimonials</a>
                     </ul>
                 </div>
 
