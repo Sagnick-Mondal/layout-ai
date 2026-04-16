@@ -1,6 +1,7 @@
 import type { Route } from "./+types/success";
 import { useEffect, useState } from "react";
 import { CheckCircle2, Sparkles } from "lucide-react";
+import puter from "@heyputer/puter.js";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,14 +14,38 @@ export default function Success() {
   const [plan, setPlan] = useState<string | null>(null);
 
   useEffect(() => {
+  const syncPlan = async () => {
     const params = new URLSearchParams(window.location.search);
     const selectedPlan = params.get("plan");
 
-    if (selectedPlan) {
-      setPlan(selectedPlan);
-      localStorage.setItem("plan", selectedPlan);
+    if (!selectedPlan) return;
+
+    setPlan(selectedPlan);
+
+    let user = await puter.auth.getUser();
+
+    // 🚨 If not logged in → force login
+    if (!user) {
+      console.log("User not logged in, forcing login...");
+      await puter.auth.signIn();
+      user = await puter.auth.getUser();
     }
-  }, []);
+
+    if (!user) {
+      console.error("Still no user after login");
+      return;
+    }
+
+    console.log("User:", user.uuid);
+
+    await puter.kv.set(`plan:${user.uuid}`, selectedPlan);
+    console.log("Plan saved to Puter");
+
+    localStorage.setItem("plan", selectedPlan);
+  };
+
+  syncPlan();
+}, []);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center px-6">
